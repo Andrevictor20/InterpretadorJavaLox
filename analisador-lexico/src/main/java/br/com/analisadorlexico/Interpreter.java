@@ -1,6 +1,6 @@
 package br.com.analisadorlexico;
-import java.util.List;
 
+import java.util.List;
 
 class Interpreter implements Expr.Visitor<Object>,
         Stmt.Visitor<Void> {
@@ -87,9 +87,9 @@ class Interpreter implements Expr.Visitor<Object>,
         return expr.accept(this);
     }
 
-     private void execute(Stmt stmt) {
-    stmt.accept(this);
-  }
+    private void execute(Stmt stmt) {
+        stmt.accept(this);
+    }
 
     @Override
     public Void visitExpressionStmt(Stmt.Expression stmt) {
