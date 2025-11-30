@@ -1,13 +1,16 @@
 package br.com.analisadorlexico;
 
 import java.util.List;
+import java.util.ArrayList;
 
 import static br.com.analisadorlexico.lox.TokenType.*;
 
 class Parser {
   private final List<Token> tokens;
   private int current = 0;
-  private static class ParseError extends RuntimeException {}
+
+  private static class ParseError extends RuntimeException {
+  }
 
   Parser(List<Token> tokens) {
     this.tokens = tokens;
@@ -15,6 +18,25 @@ class Parser {
 
   private Expr expression() {
     return equality();
+  }
+
+  private Stmt statement() {
+    if (match(PRINT))
+      return printStatement();
+
+    return expressionStatement();
+  }
+
+  private Stmt printStatement() {
+    Expr value = expression();
+    consume(SEMICOLON, "Expect ';' after value.");
+    return new Stmt.Print(value);
+  }
+
+  private Stmt expressionStatement() {
+    Expr expr = expression();
+    consume(SEMICOLON, "Expect ';' after expression.");
+    return new Stmt.Expression(expr);
   }
 
   private Expr equality() {
@@ -25,10 +47,9 @@ class Parser {
       Expr right = comparison();
       expr = new Expr.Binary(expr, operator, right);
     }
-    
+
     return expr;
   }
-
 
   private Expr comparison() {
     Expr expr = term();
@@ -77,9 +98,12 @@ class Parser {
   }
 
   private Expr primary() {
-    if (match(FALSE)) return new Expr.Literal(false);
-    if (match(TRUE)) return new Expr.Literal(true);
-    if (match(NIL)) return new Expr.Literal(null);
+    if (match(FALSE))
+      return new Expr.Literal(false);
+    if (match(TRUE))
+      return new Expr.Literal(true);
+    if (match(NIL))
+      return new Expr.Literal(null);
 
     if (match(NUMBER, STRING)) {
       return new Expr.Literal(previous().literal);
@@ -106,12 +130,14 @@ class Parser {
   }
 
   private boolean check(TokenType type) {
-    if (isAtEnd()) return false;
+    if (isAtEnd())
+      return false;
     return peek().type == type;
   }
 
   private Token advance() {
-    if (!isAtEnd()) current++;
+    if (!isAtEnd())
+      current++;
     return previous();
   }
 
@@ -132,19 +158,21 @@ class Parser {
     return new ParseError();
   }
 
-  Expr parse() {
-    try {
-      return expression();
-    } catch (ParseError error) {
-      return null;
+  List<Stmt> parse() {
+    List<Stmt> statements = new ArrayList<>();
+    while (!isAtEnd()) {
+      statements.add(statement());
     }
+
+    return statements;
   }
-  
+
   private void synchronize() {
     advance();
 
     while (!isAtEnd()) {
-      if (previous().type == SEMICOLON) return;
+      if (previous().type == SEMICOLON)
+        return;
 
       switch (peek().type) {
         case CLASS:
@@ -161,12 +189,12 @@ class Parser {
       advance();
     }
   }
-  
+
   private Token consume(TokenType type, String message) {
-    if (check(type)) return advance();
+    if (check(type))
+      return advance();
 
     throw error(peek(), message);
   }
 
-  
 }
