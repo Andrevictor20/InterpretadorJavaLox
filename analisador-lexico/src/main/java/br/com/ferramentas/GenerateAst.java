@@ -16,7 +16,10 @@ public class GenerateAst {
         "Binary   : Expr left, Token operator, Expr right",
         "Grouping : Expr expression",
         "Literal  : Object value",
+        "Expression : Expr expression",
+        "Print      : Expr expression",
         "Unary    : Token operator, Expr right"));
+       
   }
 
   private static void defineAst(
