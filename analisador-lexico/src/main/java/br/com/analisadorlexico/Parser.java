@@ -109,6 +109,18 @@ class Parser {
     return expr;
   }
 
+  private Expr or() {
+    Expr expr = and();
+
+    while (match(OR)) {
+      Token operator = previous();
+      Expr right = and();
+      expr = new Expr.Logical(expr, operator, right);
+    }
+
+    return expr;
+  }
+
   private Expr equality() {
     Expr expr = comparison();
 
