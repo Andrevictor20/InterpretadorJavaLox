@@ -19,6 +19,8 @@ public class GenerateAst {
         "Literal  : Object value",
         "Block      : List<Stmt> statements",
         "Expression : Expr expression",
+        "If         : Expr condition, Stmt thenBranch," +
+                    " Stmt elseBranch",
         "Var        : Token name, Expr initializer",
         "Print      : Expr expression",
         "Unary    : Token operator, Expr right",
