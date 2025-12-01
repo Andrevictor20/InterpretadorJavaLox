@@ -33,6 +33,7 @@ class Parser {
   }
 
   private Stmt statement() {
+    if (match(FOR)) return forStatement();
     if (match(IF)) return ifStatement();
     if (match(PRINT))
       return printStatement();
@@ -41,6 +42,12 @@ class Parser {
       return new Stmt.Block(block());
 
     return expressionStatement();
+  }
+
+  private Stmt forStatement() {
+    consume(LEFT_PAREN, "Expect '(' after 'for'.");
+
+    // More here...
   }
 
   private Stmt ifStatement() {
