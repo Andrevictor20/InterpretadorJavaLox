@@ -34,11 +34,14 @@ class Parser {
   }
 
   private Stmt statement() {
-    if (match(FOR)) return forStatement();
-    if (match(IF)) return ifStatement();
+    if (match(FOR))
+      return forStatement();
+    if (match(IF))
+      return ifStatement();
     if (match(PRINT))
       return printStatement();
-    if (match(WHILE)) return whileStatement();
+    if (match(WHILE))
+      return whileStatement();
     if (match(LEFT_BRACE))
       return new Stmt.Block(block());
 
@@ -67,7 +70,7 @@ class Parser {
     }
     consume(RIGHT_PAREN, "Expect ')' after for clauses.");
     Stmt body = statement();
-    
+
     if (increment != null) {
       body = new Stmt.Block(
           Arrays.asList(
@@ -75,7 +78,8 @@ class Parser {
               new Stmt.Expression(increment)));
     }
 
-    if (condition == null) condition = new Expr.Literal(true);
+    if (condition == null)
+      condition = new Expr.Literal(true);
     body = new Stmt.While(condition, body);
 
     if (initializer != null) {
@@ -88,7 +92,7 @@ class Parser {
   private Stmt ifStatement() {
     consume(LEFT_PAREN, "Expect '(' after 'if'.");
     Expr condition = expression();
-    consume(RIGHT_PAREN, "Expect ')' after if condition."); 
+    consume(RIGHT_PAREN, "Expect ')' after if condition.");
 
     Stmt thenBranch = statement();
     Stmt elseBranch = null;
@@ -240,7 +244,21 @@ class Parser {
       return new Expr.Unary(operator, right);
     }
 
-    return primary();
+    return call();
+  }
+
+  private Expr call() {
+    Expr expr = primary();
+
+    while (true) {
+      if (match(LEFT_PAREN)) {
+        expr = finishCall(expr);
+      } else {
+        break;
+      }
+    }
+
+    return expr;
   }
 
   private Expr primary() {
