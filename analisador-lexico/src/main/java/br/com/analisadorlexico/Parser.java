@@ -247,6 +247,20 @@ class Parser {
     return call();
   }
 
+  private Expr finishCall(Expr callee) {
+    List<Expr> arguments = new ArrayList<>();
+    if (!check(RIGHT_PAREN)) {
+      do {
+        arguments.add(expression());
+      } while (match(COMMA));
+    }
+
+    Token paren = consume(RIGHT_PAREN,
+        "Expect ')' after arguments.");
+
+    return new Expr.Call(callee, paren, arguments);
+  }
+
   private Expr call() {
     Expr expr = primary();
 
