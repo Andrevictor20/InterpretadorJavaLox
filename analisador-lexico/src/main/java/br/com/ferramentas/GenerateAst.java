@@ -27,6 +27,7 @@ public class GenerateAst {
             " Stmt elseBranch",
         "Var        : Token name, Expr initializer",
         "Print      : Expr expression",
+        "Return     : Token keyword, Expr value",
         "Var        : Token name, Expr initializer",
         "While      : Expr condition, Stmt body",
         "Unary    : Token operator, Expr right",
