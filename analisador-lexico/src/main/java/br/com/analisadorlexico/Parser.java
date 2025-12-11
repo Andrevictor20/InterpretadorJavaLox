@@ -251,8 +251,12 @@ class Parser {
     List<Expr> arguments = new ArrayList<>();
     if (!check(RIGHT_PAREN)) {
       do {
-        arguments.add(expression());
-      } while (match(COMMA));
+         if (arguments.size() >= 255) {
+          error(peek(), "Can't have more than 255 arguments.");
+        
+      } 
+      arguments.add(expression());
+      while (match(COMMA));
     }
 
     Token paren = consume(RIGHT_PAREN,
