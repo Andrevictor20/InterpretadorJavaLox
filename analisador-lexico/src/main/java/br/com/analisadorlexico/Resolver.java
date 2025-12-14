@@ -174,6 +174,10 @@ private void declare(Token name) {
     if (scopes.isEmpty()) return;
 
     Map<String, Boolean> scope = scopes.peek();
+     if (scope.containsKey(name.lexeme)) {
+      Lox.error(name,
+          "Already a variable with this name in this scope.");
+    }
     scope.put(name.lexeme, false);
 }
 
