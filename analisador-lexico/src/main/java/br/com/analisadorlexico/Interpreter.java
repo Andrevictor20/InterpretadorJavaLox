@@ -137,6 +137,10 @@ class Interpreter implements Expr.Visitor<Object>,
         stmt.accept(this);
     }
 
+    void resolve(Expr expr, int depth) {
+        locals.put(expr, depth);
+    }
+
     void executeBlock(List<Stmt> statements,
             Environment environment) {
         Environment previous = this.environment;
