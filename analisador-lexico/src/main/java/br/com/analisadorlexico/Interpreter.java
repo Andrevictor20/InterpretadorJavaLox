@@ -11,7 +11,6 @@ class Interpreter implements Expr.Visitor<Object>,
     private Environment environment = globals;
     private final Map<Expr, Integer> locals = new HashMap<>();
 
-
     Interpreter() {
     globals.define("clock", new LoxCallable() {
       @Override
