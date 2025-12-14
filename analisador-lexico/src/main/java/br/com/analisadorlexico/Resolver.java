@@ -53,3 +53,10 @@ private void beginScope() {
 private void endScope() {
     scopes.pop();
 }
+
+private void declare(Token name) {
+    if (scopes.isEmpty()) return;
+
+    Map<String, Boolean> scope = scopes.peek();
+    scope.put(name.lexeme, false);
+}
