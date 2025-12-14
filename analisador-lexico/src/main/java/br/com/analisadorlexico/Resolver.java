@@ -12,3 +12,29 @@ class Resolver implements Expr.Visitor<Void>, Stmt.Visitor<Void> {
     this.interpreter = interpreter;
   }
 }
+
+@Override
+  public Void visitBlockStmt(Stmt.Block stmt) {
+    beginScope();
+    resolve(stmt.statements);
+    endScope();
+    return null;
+}
+
+void resolve(List<Stmt> statements) {
+    for (Stmt statement : statements) {
+      resolve(statement);
+    }
+}
+
+private void resolve(Stmt stmt) {
+    stmt.accept(this);
+}
+
+private void resolve(Expr expr) {
+    expr.accept(this);
+}
+
+private void beginScope() {
+    scopes.push(new HashMap<String, Boolean>());
+}
