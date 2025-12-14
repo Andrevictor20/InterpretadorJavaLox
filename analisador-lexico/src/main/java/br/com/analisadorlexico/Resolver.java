@@ -41,7 +41,7 @@ public Void visitClassStmt(Stmt.Class stmt) {
     LoxClass klass = new LoxClass(stmt.name.lexeme);
     environment.assign(stmt.name, klass);
     return null;
-}
+ }
 
 @Override
 public Void visitExpressionStmt(Stmt.Expression stmt) {
@@ -136,6 +136,12 @@ public Void visitCallExpr(Expr.Call expr) {
       resolve(argument);
     }
 
+    return null;
+}
+
+@Override
+public Void visitGetExpr(Expr.Get expr) {
+    resolve(expr.object);
     return null;
 }
 
