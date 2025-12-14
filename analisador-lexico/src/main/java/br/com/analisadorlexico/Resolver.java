@@ -29,6 +29,21 @@ public Void visitBlockStmt(Stmt.Block stmt) {
 }
 
 @Override
+public Void visitClassStmt(Stmt.Class stmt) {
+    declare(stmt.name);
+    define(stmt.name);
+    return null;
+}
+
+@Override
+public Void visitClassStmt(Stmt.Class stmt) {
+    environment.define(stmt.name.lexeme, null);
+    LoxClass klass = new LoxClass(stmt.name.lexeme);
+    environment.assign(stmt.name, klass);
+    return null;
+}
+
+@Override
 public Void visitExpressionStmt(Stmt.Expression stmt) {
     resolve(stmt.expression);
     return null;
@@ -62,7 +77,7 @@ public Void visitReturnStmt(Stmt.Return stmt) {
     if (currentFunction == FunctionType.NONE) {
       Lox.error(stmt.keyword, "Can't return from top-level code.");
     }
-    
+
     if (stmt.value != null) {
       resolve(stmt.value);
     }
