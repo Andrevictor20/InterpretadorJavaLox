@@ -44,6 +44,13 @@ public Void visitVariableExpr(Expr.Variable expr) {
     return null;
 }
 
+@Override
+public Void visitAssignExpr(Expr.Assign expr) {
+    resolve(expr.value);
+    resolveLocal(expr, expr.name);
+    return null;
+}
+
 void resolve(List<Stmt> statements) {
     for (Stmt statement : statements) {
       resolve(statement);
