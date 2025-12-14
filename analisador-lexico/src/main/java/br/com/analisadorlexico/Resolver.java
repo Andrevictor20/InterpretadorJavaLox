@@ -60,3 +60,11 @@ private void declare(Token name) {
     Map<String, Boolean> scope = scopes.peek();
     scope.put(name.lexeme, false);
 }
+
+private void define(Token name) {
+    if (scopes.isEmpty()) return;
+
+    Map<String, Boolean> scope = scopes.peek();
+    scope.put(name.lexeme, true);
+}
+
