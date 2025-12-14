@@ -30,7 +30,19 @@ public Void visitVarStmt(Stmt.Var stmt) {
     }
     define(stmt.name);
     return null;
-}  
+}
+
+@Override
+public Void visitVariableExpr(Expr.Variable expr) {
+    if (!scopes.isEmpty() &&
+        scopes.peek().get(expr.name.lexeme) == Boolean.FALSE) {
+      Lox.error(expr.name,
+          "Can't read local variable in its own initializer.");
+    }
+
+    resolveLocal(expr, expr.name);
+    return null;
+}
 
 void resolve(List<Stmt> statements) {
     for (Stmt statement : statements) {
@@ -66,5 +78,14 @@ private void define(Token name) {
 
     Map<String, Boolean> scope = scopes.peek();
     scope.put(name.lexeme, true);
+}
+
+private void resolveLocal(Expr expr, Token name) {
+    for (int i = scopes.size() - 1; i >= 0; i--) {
+      if (scopes.get(i).containsKey(name.lexeme)) {
+        interpreter.resolve(expr, scopes.size() - 1 - i);
+        return;
+      }
+    }
 }
 
