@@ -159,6 +159,13 @@ public Void visitLogicalExpr(Expr.Logical expr) {
 }
 
 @Override
+public Void visitSetExpr(Expr.Set expr) {
+    resolve(expr.value);
+    resolve(expr.object);
+    return null;
+  }
+
+@Override
 public Void visitUnaryExpr(Expr.Unary expr) {
     resolve(expr.right);
     return null;
