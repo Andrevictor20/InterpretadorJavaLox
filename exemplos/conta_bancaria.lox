@@ -1,0 +1,35 @@
+print "=== Simulacao de conta bancaria ===";
+
+class Conta {
+  init(titular, saldo) {
+    this.titular = titular;
+    this.saldo = saldo;
+  }
+
+  depositar(valor) {
+    this.saldo = this.saldo + valor;
+  }
+
+  sacar(valor) {
+    if (valor > this.saldo) {
+      print "Saldo insuficiente.";
+      return;
+    }
+    this.saldo = this.saldo - valor;
+  }
+
+  mostrarSaldo() {
+    print "Titular:";
+    print this.titular;
+    print "Saldo atual:";
+    print this.saldo;
+  }
+}
+
+var conta = Conta("Ana", 1500);
+conta.mostrarSaldo();
+conta.depositar(250);
+conta.mostrarSaldo();
+conta.sacar(500);
+conta.mostrarSaldo();
+conta.sacar(2000);

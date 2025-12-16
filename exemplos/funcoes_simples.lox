@@ -1,0 +1,13 @@
+fun soma(a, b) {
+  return a + b;
+}
+
+fun maior(a, b) {
+  if (a > b) {
+    return a;
+  }
+  return b;
+}
+
+print soma(4, 7);
+print maior(3, 9);

@@ -1,0 +1,13 @@
+class Pessoa {
+  init(nome) {
+    this.nome = nome;
+  }
+
+  falar(frase) {
+    print this.nome;
+    print frase;
+  }
+}
+
+var joao = Pessoa("Joao");
+joao.falar("Bom dia");

@@ -1,0 +1,23 @@
+//variaveis 
+var a = 10;
+var b = 20;
+print a + b;
+a = a + 5;
+print a;
+print a + b;
+
+
+//funcoes
+fun soma(n) { var total = 0; for (var i = 1; i <= n; i = i + 1) { total = total + i; } return total; }
+
+print soma(5); print soma(10);
+
+
+//classe e metodos
+class Ponto { init(x, y) { this.x = x; this.y = y; } mover(dx, dy) { this.x = this.x + dx; this.y = this.y + dy; } mostrar() { print "("; print this.x; print ", "; print this.y; print ")"; } }
+
+var p = Ponto(1, 2);
+
+p.mostrar();
+
+p.mover(3, -1); p.mostrar();
