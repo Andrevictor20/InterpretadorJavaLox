@@ -35,9 +35,9 @@ class LoxClass implements LoxCallable {
     LoxFunction initializer = findMethod("init");
     if (initializer == null) return 0;
     return initializer.arity();
-  }  
-  
-LoxFunction findMethod(String name) {
+  }
+
+  LoxFunction findMethod(String name) {
     if (methods.containsKey(name)) {
       return methods.get(name);
     }

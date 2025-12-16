@@ -1,7 +1,9 @@
 package br.com.analisadorlexico;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static br.com.analisadorlexico.TokenType.BANG;
 import static br.com.analisadorlexico.TokenType.BANG_EQUAL;
@@ -17,6 +19,25 @@ import static br.com.analisadorlexico.TokenType.LEFT_PAREN;
 import static br.com.analisadorlexico.TokenType.LESS;
 import static br.com.analisadorlexico.TokenType.LESS_EQUAL;
 import static br.com.analisadorlexico.TokenType.MINUS;
+import static br.com.analisadorlexico.TokenType.AND;
+import static br.com.analisadorlexico.TokenType.CLASS;
+import static br.com.analisadorlexico.TokenType.ELSE;
+import static br.com.analisadorlexico.TokenType.FALSE;
+import static br.com.analisadorlexico.TokenType.FOR;
+import static br.com.analisadorlexico.TokenType.FUN;
+import static br.com.analisadorlexico.TokenType.IF;
+import static br.com.analisadorlexico.TokenType.NIL;
+import static br.com.analisadorlexico.TokenType.OR;
+import static br.com.analisadorlexico.TokenType.PRINT;
+import static br.com.analisadorlexico.TokenType.RETURN;
+import static br.com.analisadorlexico.TokenType.SUPER;
+import static br.com.analisadorlexico.TokenType.THIS;
+import static br.com.analisadorlexico.TokenType.TRUE;
+import static br.com.analisadorlexico.TokenType.VAR;
+import static br.com.analisadorlexico.TokenType.WHILE;
+import static br.com.analisadorlexico.TokenType.IDENTIFIER;
+import static br.com.analisadorlexico.TokenType.NUMBER;
+import static br.com.analisadorlexico.TokenType.STRING;
 import static br.com.analisadorlexico.TokenType.PLUS;
 import static br.com.analisadorlexico.TokenType.RIGHT_BRACE;
 import static br.com.analisadorlexico.TokenType.RIGHT_PAREN;

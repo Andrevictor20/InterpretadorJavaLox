@@ -16,8 +16,6 @@ class LoxInstance {
     return klass.name + " instance";
   }
 
-}
-
   Object get(Token name) {
     if (fields.containsKey(name.lexeme)) {
       return fields.get(name.lexeme);
@@ -31,6 +29,7 @@ class LoxInstance {
         "Undefined property '" + name.lexeme + "'.");
   }
 
-void set(Token name, Object value) {
+  void set(Token name, Object value) {
     fields.put(name.lexeme, value);
+  }
 }
