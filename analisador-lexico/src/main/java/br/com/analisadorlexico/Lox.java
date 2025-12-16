@@ -7,7 +7,6 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
-import java.util.Arrays;
 
 public class Lox {
 
@@ -44,9 +43,49 @@ public class Lox {
             String line = reader.readLine();
             if (line == null)
                 break;
-            run(line);
+            runRepl(line);
             hadError = false;
         }
+    }
+
+    private static void runRepl(String source) {
+        Scanner scanner = new Scanner(source);
+        List<Token> tokens = scanner.scanTokens();
+
+        Parser parser = new Parser(tokens);
+        List<Stmt> statements = parser.parse();
+        
+        // If parsing failed, try as expression (for REPL convenience)
+        if (hadError) {
+            hadError = false;
+            parser = new Parser(tokens);
+            Expr expr = parser.parseExpression();
+            
+            if (!hadError && parser.isAtEnd()) {
+                // It's a valid expression, evaluate and print
+                Resolver resolver = new Resolver(interpreter);
+                resolver.resolveExpr(expr);
+                if (hadError) return;
+                
+                Object value = interpreter.evaluate(expr);
+                if (value != null) {
+                    System.out.println(stringify(value));
+                }
+                return;
+            }
+            // If expression parsing also failed, restore error state
+            hadError = true;
+            return;
+        }
+        
+        if (hadError)
+            return;
+        Resolver resolver = new Resolver(interpreter);
+        resolver.resolve(statements);
+
+        if (hadError) return;
+
+        interpreter.interpret(statements);
     }
 
     private static void run(String source) {
@@ -63,6 +102,18 @@ public class Lox {
         if (hadError) return;
 
         interpreter.interpret(statements);
+    }
+
+    private static String stringify(Object object) {
+        if (object == null) return "nil";
+        if (object instanceof Double) {
+            String text = object.toString();
+            if (text.endsWith(".0")) {
+                text = text.substring(0, text.length() - 2);
+            }
+            return text;
+        }
+        return object.toString();
     }
 
     static void error(int line, String message) {

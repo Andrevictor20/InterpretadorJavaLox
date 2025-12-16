@@ -218,6 +218,10 @@ private void resolve(Expr expr) {
     expr.accept(this);
 }
 
+void resolveExpr(Expr expr) {
+    resolve(expr);
+}
+
   private void resolveFunction(
       Stmt.Function function, FunctionType type) {
     FunctionType enclosingFunction = currentFunction;

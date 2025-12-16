@@ -6,8 +6,8 @@
 /home/andrevmp/Downloads/InterpretadorJavaLox/analisador-lexico/src/main/java/br/com/analisadorlexico/TokenType.java
 /home/andrevmp/Downloads/InterpretadorJavaLox/analisador-lexico/src/main/java/br/com/analisadorlexico/Token.java
 /home/andrevmp/Downloads/InterpretadorJavaLox/analisador-lexico/src/main/java/br/com/analisadorlexico/RuntimeError.java
-/home/andrevmp/Downloads/InterpretadorJavaLox/analisador-lexico/src/main/java/br/com/analisadorlexico/Lox.java
 /home/andrevmp/Downloads/InterpretadorJavaLox/analisador-lexico/src/main/java/br/com/analisadorlexico/Main.java
+/home/andrevmp/Downloads/InterpretadorJavaLox/analisador-lexico/src/main/java/br/com/analisadorlexico/Lox.java
 /home/andrevmp/Downloads/InterpretadorJavaLox/analisador-lexico/src/main/java/br/com/analisadorlexico/Interpreter.java
 /home/andrevmp/Downloads/InterpretadorJavaLox/analisador-lexico/src/main/java/br/com/analisadorlexico/Parser.java
 /home/andrevmp/Downloads/InterpretadorJavaLox/analisador-lexico/src/main/java/br/com/analisadorlexico/LoxFunction.java

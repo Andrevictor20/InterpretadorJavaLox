@@ -163,6 +163,9 @@ class Parser {
 
   private Stmt expressionStatement() {
     Expr expr = expression();
+    if (!check(SEMICOLON)) {
+      return new Stmt.Expression(expr);
+    }
     consume(SEMICOLON, "Expect ';' after expression.");
     return new Stmt.Expression(expr);
   }
@@ -388,7 +391,7 @@ class Parser {
     return previous();
   }
 
-  private boolean isAtEnd() {
+  boolean isAtEnd() {
     return peek().type == EOF;
   }
 
@@ -412,6 +415,14 @@ class Parser {
     }
 
     return statements;
+  }
+
+  Expr parseExpression() {
+    try {
+      return expression();
+    } catch (ParseError error) {
+      return null;
+    }
   }
 
   private void synchronize() {
